@@ -5,7 +5,7 @@ def sing_song bottle_count
 	#{bottle_count} bottles of beer on the wall,
 	#{bottle_count} bottles of beer...
 	take one down, pass it around,
-	#{bottle_count - 1} more bottles of beer on the wall!
+	#{bottle_count - 1} more #{bottle_count == 2 ? 'bottle' : 'bottles'} of beer on the wall!
 
 	song
 	puts lyrics
