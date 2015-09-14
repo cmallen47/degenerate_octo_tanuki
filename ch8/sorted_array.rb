@@ -1,5 +1,10 @@
 a = []
 a << gets
-a.sort
-a.each { |v| p v }
+s = a.pop
+words = s.split(',')
+words.sort!
+words.each { |v| puts "#{v.lstrip}" }
+
+
+
 
