@@ -1,36 +1,56 @@
 TABLE_OF_CONTENTS = "Table of Contents"
-@chapters = { ch1: ['Chapter 1:', 'Getting Started', 'page 1'], 
-						ch2: ['Chapter 2:', 'Numbers', 'page 9'], 
-						ch3: ['Chapter 3:', 'Letters', 'page 13'] }
-LJUST = 15
-LCOLUMN = 10
-CENTER = 0
-RJUST = 30
+@contents 				= { ch1: ['1:', 'Getting Started', '1'], 
+										ch2: ['2:', 'Numbers', '9'], 
+										ch3: ['100:', 'Letters', '135'] }
+@ch_numbers       = []
+@ch_names         = []
+@pg_numbers       = []
+
 
 def print_contents
 	puts ""
 	puts TABLE_OF_CONTENTS.center(50)
 	puts ""
-	contents = ""
-	@chapters.each do |k, v| 
-		contents = contents + print_left_column( v[0] ) + print_center_column( v[1] ) + print_right_column( v[2] )  + "\n"
+	column_widths
+	@contents.each do |k, v|
+		puts "Chapter: #{print_chapter_numbers} + #{print_chapter_names} + 
+					page: + print_page_numbers"
 	end
-	puts contents + "\n"
+	puts "\n"
 end
 
-def print_left_column
-	left_column = 
-	#after chapter 9, the size of left column will increase to 11
-	unless left_column <= 10
-	v[0].ljust(LJUST)
+
+def column_widths
+	@contents.each do |k, v|
+		@ch_numbers.push v[0]
+		@ch_names.push v[1]
+		@pg_numbers.push v[2]
+	end
 end
 
-def print_center_column
-	v[1].center(CENTER)
+
+def print_chapter_numbers
+	justify_by = get_width_largest_column_entry( @ch_numbers ) + 5
 end
 
-def print_right_column
-	v[2].rjust( v[2].length == 6 ? RJUST - v[1].length : RJUST - (v[1].length - 1))
+
+def print_chapter_names
+	justify_by = get_width_largest_column_entry( @chapter_names )
 end
+
+
+def print_page_numbers
+	# right_column_text.rjust( right_column_text.length == 6 ? 
+	# 	val - center_column_text.length : 
+	# 	val - ( center_column_text.length - 1 ))
+end
+
+
+def get_width_largest_column_entry column
+	column.sort.last.length
+end
+
+
 
 print_contents
+
