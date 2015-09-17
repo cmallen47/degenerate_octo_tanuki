@@ -42,7 +42,7 @@ def build_contents_string column_data
 		chapter_number = v[0]
 		chapter_name   = v[1]
 		page_number    = v[2]
-	 	contents = contents + "Chapter:".ljust(COL_1_PADDING, ' ') + 
+	 	contents 			 = contents + "Chapter:".ljust(COL_1_PADDING, ' ') + 
 	 					"#{chapter_number.ljust(column_data[:largest_chapter] + 
 	 					PADDING, ' ')}" + 
 	 				 	"#{chapter_name.ljust(column_data[:largest_name] + 
