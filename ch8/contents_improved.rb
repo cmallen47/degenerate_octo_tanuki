@@ -1,50 +1,77 @@
 TABLE_OF_CONTENTS = "Table of Contents"
-PADDING						= 5
+PADDING     			= 4
+COL_1_PADDING     = "Chapter:".length + PADDING
+COL_4_PADDING     = "page".length + PADDING
 @contents 				= { ch1: ['1', 'Getting Started', '1'], 
-										ch2: ['2', 'Numbers', '9'], 
-										ch3: ['100', 'Letters', '135'] }
-@ch_numbers       = []
-@ch_names         = []
-@pg_numbers       = []
+					  				ch2: ['2', 'Numbers', '9'], 
+				      			ch3: ['3', 'Letters', '25'],
+				      			ch10: ['10', 'Lots of stuff in here!', '125'] }	      			
 
-@contents.each do |k, v|
-	@ch_numbers << v[0]
-	@ch_names << v[1]
-	@pg_numbers << v[2]
+
+def display_table_of_contents
+	column_data = collect_column_data
+	contents    = build_contents_string column_data
+	print_header column_data[:total_width]
+	print_body contents
 end
 
-
-def print_contents
-	puts ""
-	puts TABLE_OF_CONTENTS.center(50)
-	puts ""
+def collect_column_data
+	chapter_numbers = []
+	chapter_names	  = []
+	page_numbers		= []
 	@contents.each do |k, v|
-		puts "#{print_chapter_number} #{print_chapter_name} #{print_page_number}"
+		chapter_numbers << v[0]
+		chapter_names << v[1]
+		page_numbers << v[2]
 	end
-	puts "\n"
+	largest_chapter = largest_value chapter_numbers
+	largest_name    = largest_value chapter_names
+	largest_page    = largest_value page_numbers
+	total_width     = COL_1_PADDING + largest_chapter + largest_name + 
+										COL_4_PADDING + largest_page + (PADDING * 2)
+	column_data     = { largest_chapter: largest_chapter, 
+											largest_name: largest_name, 
+											largest_page: largest_page, 
+											total_width: total_width }
 end
 
 
-def print_chapter_number
-	justify_by = get_width_largest_column_entry( @ch_numbers ) + PADDING
+def build_contents_string column_data
+	contents = ""
+	@contents.each do |k, v|
+		chapter_number = v[0]
+		chapter_name   = v[1]
+		page_number    = v[2]
+	 	contents = contents + "Chapter:".ljust(COL_1_PADDING, ' ') + 
+	 					"#{chapter_number.ljust(column_data[:largest_chapter] + 
+	 					PADDING, ' ')}" + 
+	 				 	"#{chapter_name.ljust(column_data[:largest_name] + 
+	 				 	PADDING, ' ')}" + "page" + 
+						"#{page_number.rjust(column_data[:largest_page] + PADDING, ' ')}\n" 
+	end
+	contents
+end
+
+def largest_value ( set )
+	largest = 0
+	set.each do | v |
+		largest = v.length if v.length > largest
+	end
+	largest
+end
+
+def print_header center_by
+	puts ""
+	puts "#{TABLE_OF_CONTENTS.center(center_by)}"
+	puts ""
+end
+
+def print_body line
+	puts line
+	puts ""
 end
 
 
-def print_chapter_name
-	justify_by = get_width_largest_column_entry( @ch_names )
-end
 
-
-def print_page_number
-	justify_by = get_width_largest_column_entry( @pg_numbers ) + PADDING
-end
-
-
-def get_width_largest_column_entry column
-	b = column.map { |v| v.length }
-	b.sort.last
-end
-
-
-print_contents
+display_table_of_contents
 
