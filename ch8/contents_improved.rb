@@ -52,7 +52,7 @@ def build_contents_string column_data
 	contents
 end
 
-def largest_value ( set )
+def largest_value set
 	largest = 0
 	set.each do | v |
 		largest = v.length if v.length > largest
@@ -66,8 +66,8 @@ def print_header center_by
 	puts ""
 end
 
-def print_body line
-	puts line
+def print_body contents
+	puts contents
 	puts ""
 end
 
