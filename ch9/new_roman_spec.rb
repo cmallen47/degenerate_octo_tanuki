@@ -86,4 +86,7 @@ describe '#romanize' do
 		expect(2999.romanize).to eq('MMCMXCIX')
 	end
 
+	it 'displays the number 3000 as a roman numeral' do
+		expect(3001.romanize).to eq('MMMI')
+	end
 end
