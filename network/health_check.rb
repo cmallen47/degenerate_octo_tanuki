@@ -23,7 +23,7 @@ hosts = {
 response = nil
 
 def show_timer
-	5.times { print '.'; sleep 1}
+	5.times {print "   \\" + "\r"; sleep 0.25; print "   |" + "\r"; sleep 0.25; print "   /" + "\r"; sleep 0.25; print "   -" + "\r"; sleep 0.25}
 end
 
 while true
