@@ -22,25 +22,34 @@ hosts = {
 }
 response = nil
 
-hosts.each do |k, v|
-	begin
-	  http = Net::HTTP.new(v[:host], v[:port])
-	  puts "[#{k}]"
-	  puts "\n*********************************************************\n"
-	  Benchmark.benchmark(CAPTION, 10, FORMAT, "") do |x|
-	  	x.report("time:") { response = http.get('/welcome.htm') }
-	  	puts "\n*********************************************************\n"
-			puts "[#{k}] Response code: #{response.code}"
-	  	puts "[#{k}] Response message: #{response.message}"
-	  	puts "[#{k}] Response uri: #{response.uri}"
-	  	puts "[#{k}] Response lines: #{response.body.lines.size}"
-	  	puts "[#{k}] Response first 5 lines:"
-	  	puts "\n\n"
-	  	response.body.lines[0..10].each { |l| puts l }
-	  	puts "\n*********************************************************\n\n\n"
-	  end
-	rescue => err
-  	puts "Oh snap. Bad things happened. #{err}"
-	end	
+def show_timer
+	5.times { print '.'; sleep 1}
 end
+
+while true
+	hosts.each do |k, v|
+		begin
+		  http = Net::HTTP.new(v[:host], v[:port])
+		  puts "[#{k}]"
+		  puts "\n*********************************************************\n"
+		  Benchmark.benchmark(CAPTION, 10, FORMAT, "") do |x|
+		  	x.report("time:") { response = http.get('/welcome.htm') }
+		  	puts "\n*********************************************************\n"
+				puts "[#{k}] Response code: #{response.code}"
+		  	puts "[#{k}] Response message: #{response.message}"
+		  	puts "[#{k}] Response uri: #{response.uri}"
+		  	puts "[#{k}] Response lines: #{response.body.lines.size}"
+		  	puts "[#{k}] Response first 5 lines:"
+		  	puts "\n\n"
+		  	response.body.lines[0..10].each { |l| puts l }
+		  	puts "\n*********************************************************\n\n\n"
+		  end
+		rescue => err
+	  	puts "Oh snap. Bad things happened. #{err}"
+		end	
+	end
+	show_timer
+end
+
+
 
