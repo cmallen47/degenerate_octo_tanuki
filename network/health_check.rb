@@ -21,9 +21,20 @@ hosts = {
 	:dfwintas16prd => { host: 'dfwintas16prd', port: '31151' }
 }
 response = nil
+$error = false
 
 def show_timer
-	5.times {print "   \\" + "\r"; sleep 0.25; print "   |" + "\r"; sleep 0.25; print "   /" + "\r"; sleep 0.25; print "   -" + "\r"; sleep 0.25}
+	puts "*** ERROR *** There was a problem communicating with at least one host!" if $error
+	5.times do
+		print "   \\\r"
+		sleep 0.25 
+		print "   |\r"
+		sleep 0.25
+		print "   /\r"
+		sleep 0.25
+		print "   -\r"
+		sleep 0.25
+	end
 end
 
 while true
@@ -45,8 +56,9 @@ while true
 		  	puts "\n*********************************************************\n\n\n"
 		  end
 		rescue => err
-	  	puts "Oh snap. Bad things happened. #{err}"
-		end	
+	  	puts "Oh snap. Bad things happened. #{err}\n\n"
+	  	$error = true
+		end
 	end
 	show_timer
 end
