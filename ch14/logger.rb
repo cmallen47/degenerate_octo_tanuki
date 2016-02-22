@@ -5,6 +5,7 @@ def logger(description, &block)
 end
 
 logger 'running the block...' do
-  puts 'inside the block' 
-  'Have a nice day.'
+  logger 'Running inside the block...' do 
+    10 * 10
+  end
 end
