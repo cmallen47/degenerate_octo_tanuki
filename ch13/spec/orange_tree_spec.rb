@@ -49,6 +49,18 @@ describe "An orange tree's lifecycle: " do
     expect(@orange_tree.pick_orange).to eql(9)
   end
 
+  it "grows 1 foot each year" do
+    @orange_tree.one_year_passes
+    expect(@orange_tree.height).to eql(2)
+  end
+
+  it "is 101 feet tall at the end of its life" do
+    100.times do
+      @orange_tree.one_year_passes
+    end
+    expect(@orange_tree.height).to eql(101)
+  end
+
   it "has a lifespan of 100 years" do
     100.times do
       @orange_tree.one_year_passes

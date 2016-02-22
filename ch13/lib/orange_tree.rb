@@ -14,6 +14,7 @@ class OrangeTree
   end
 
   def one_year_passes
+    @height += 1
     @age += 1
     produce_fruit if @age >= 5
   end
